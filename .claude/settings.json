@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.figma.com)",
+      "Bash(env)",
+      "Read(//c/Users/Henrique/.claude/**)",
+      "Read(//c/Users/Henrique/**)",
+      "Bash(PYTHONIOENCODING=utf-8 python scripts/search.py \"internal tool team links directory productivity dashboard minimal\" --design-system -p \"Links Uteis GS\" -f markdown)",
+      "Bash(curl -s -m 20 -w \"\\\\nHTTP %{http_code}\\\\n\" \"https://www.figma.com/api/oembed?url=https%3A%2F%2Fwww.figma.com%2Fdesign%2FmyZniw00JNflRgBSlm83dL%2FUntitled\")",
+      "Bash(curl -s -m 20 -o /dev/null -w \"REST API sem token: HTTP %{http_code}\\\\n\" \"https://api.figma.com/v1/files/myZniw00JNflRgBSlm83dL?depth=1\")"
+    ]
+  }
+}

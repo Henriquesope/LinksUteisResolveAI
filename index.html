@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Links da equipe · ResolveAI</title>
+  <meta name="description" content="Todos os links da equipe ResolveAI em um só lugar.">
+  <meta name="theme-color" content="#1769FF">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    // Aplica o tema salvo antes de pintar a página, para evitar flash.
+    try {
+      var savedTheme = localStorage.getItem("links-theme");
+      if (savedTheme === "dark" || savedTheme === "light") {
+        document.documentElement.dataset.theme = savedTheme;
+      }
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <!-- Marca redesenhada a partir da miniatura do Figma. Substituir pelo SVG oficial quando exportado. -->
+      <symbol id="mark" viewBox="0 0 515 562">
+        <path fill="currentColor" fill-rule="evenodd" d="M95 0H315C410 0 488 82 488 180C488 262 435 332 370 358L515 542C522 552 515 562 503 562H355C342 562 335 558 328 550L215 422L95 542C80 557 65 562 45 562C20 562 0 542 0 517V97C0 42 40 0 95 0ZM125 98H315C350 98 376 138 376 178C376 222 350 258 315 258H158L114 306V109C114 102 118 98 125 98Z"/>
+        <g style="fill: var(--mark-dots)"><circle cx="183" cy="177" r="17"/><circle cx="241" cy="177" r="17"/><circle cx="299" cy="177" r="17"/></g>
+      </symbol>
+
+      <!-- Ícones: Lucide (ISC) -->
+      <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+      <symbol id="i-star" viewBox="0 0 24 24"><path d="M11.5 2.3a.5.5 0 0 1 1 0l2.8 5.8 6.3.9a.5.5 0 0 1 .3.9l-4.6 4.5 1.1 6.3a.5.5 0 0 1-.8.6L12 17.3l-5.6 3a.5.5 0 0 1-.8-.6l1.1-6.3L2.1 9a.5.5 0 0 1 .3-.9l6.3-.9z"/></symbol>
+      <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="14" height="14" rx="2"/><path d="M4 16a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+      <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+      <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9"/></symbol>
+      <symbol id="i-external" viewBox="0 0 24 24"><path d="M7 7h10v10M7 17 17 7"/></symbol>
+    </defs>
+  </svg>
+
+  <a class="skip-link" href="#conteudo">Pular para os links</a>
+
+  <header class="hero">
+    <svg class="hero__mark" aria-hidden="true" focusable="false"><use href="#mark"/></svg>
+
+    <div class="wrap">
+      <div class="topbar">
+        <a class="brand" href="./" aria-label="ResolveAI, página inicial dos links">
+          <svg class="brand__mark" aria-hidden="true" focusable="false"><use href="#mark"/></svg>
+          <span class="brand__name" aria-hidden="true">ResolveAI</span>
+        </a>
+        <button class="icon-btn icon-btn--on-brand" id="theme-toggle" type="button">
+          <svg class="icon" aria-hidden="true" focusable="false"><use id="theme-icon" href="#i-moon"/></svg>
+        </button>
+      </div>
+
+      <h1 class="hero__title">Links da equipe</h1>
+
+      <form class="search" role="search" id="search-form">
+        <label class="search__label" for="search">Buscar links</label>
+        <div class="search__field">
+          <svg class="icon search__icon" aria-hidden="true" focusable="false"><use href="#i-search"/></svg>
+          <input id="search" class="search__input" type="search" autocomplete="off" spellcheck="false"
+                 placeholder="Nome, assunto ou ferramenta" aria-describedby="result-count" enterkeyhint="search">
+          <kbd class="search__kbd" aria-hidden="true">/</kbd>
+          <button class="search__clear" id="search-clear" type="button" aria-label="Limpar busca" hidden>
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-x"/></svg>
+          </button>
+        </div>
+      </form>
+    </div>
+  </header>
+
+  <nav class="filters" aria-label="Filtrar por categoria">
+    <div class="wrap filters__row">
+      <div class="chips" id="chips"></div>
+      <p class="result-count" id="result-count" role="status"></p>
+    </div>
+  </nav>
+
+  <main class="wrap main" id="conteudo" tabindex="-1">
+    <div id="sections"></div>
+
+    <div class="empty" id="empty" hidden>
+      <h2 class="empty__title" id="empty-title"></h2>
+      <p class="empty__text">Confira a escrita ou tente outra palavra.</p>
+      <button class="btn" id="empty-reset" type="button">Ver todos os links</button>
+    </div>
+
+    <noscript>
+      <p class="empty__text">Este site precisa de JavaScript para listar os links.</p>
+    </noscript>
+  </main>
+
+  <footer class="footer">
+    <p class="wrap">Faltou algum link? Ele pode ser adicionado no arquivo <code>links.js</code>.</p>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="links.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
