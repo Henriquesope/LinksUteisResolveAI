@@ -39,6 +39,9 @@
       <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></symbol>
       <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9"/></symbol>
       <symbol id="i-external" viewBox="0 0 24 24"><path d="M7 7h10v10M7 17 17 7"/></symbol>
+      <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M21.17 6.81a1 1 0 0 0-3.98-3.99L3.84 16.17a2 2 0 0 0-.5.83l-1.32 4.35a.5.5 0 0 0 .62.62l4.35-1.32a2 2 0 0 0 .83-.5z"/><path d="m15 5 4 4"/></symbol>
+      <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14M12 5v14"/></symbol>
     </defs>
   </svg>
 
@@ -53,9 +56,15 @@
           <svg class="brand__mark" aria-hidden="true" focusable="false"><use href="#mark"/></svg>
           <span class="brand__name" aria-hidden="true">ResolveAI</span>
         </a>
-        <button class="icon-btn icon-btn--on-brand" id="theme-toggle" type="button">
-          <svg class="icon" aria-hidden="true" focusable="false"><use id="theme-icon" href="#i-moon"/></svg>
-        </button>
+        <div class="topbar__actions">
+          <button class="pill-btn" id="edit-toggle" type="button" aria-pressed="false" hidden>
+            <svg class="icon" aria-hidden="true" focusable="false"><use id="edit-icon" href="#i-pencil"/></svg>
+            <span id="edit-label">Editar</span>
+          </button>
+          <button class="icon-btn icon-btn--on-brand" id="theme-toggle" type="button">
+            <svg class="icon" aria-hidden="true" focusable="false"><use id="theme-icon" href="#i-moon"/></svg>
+          </button>
+        </div>
       </div>
 
       <h1 class="hero__title">Links da equipe</h1>
@@ -83,7 +92,16 @@
   </nav>
 
   <main class="wrap main" id="conteudo" tabindex="-1">
-    <div id="sections"></div>
+    <p class="edit-note" id="edit-note" hidden>Você está editando. O que mudar aqui aparece para todo mundo que usa o site.</p>
+
+    <div id="sections"><p class="status-text">Carregando links…</p></div>
+
+    <div class="edit-tools" id="edit-tools" hidden>
+      <button class="btn btn--ghost" id="add-section" type="button">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg>
+        Nova seção
+      </button>
+    </div>
 
     <div class="empty" id="empty" hidden>
       <h2 class="empty__title" id="empty-title"></h2>
@@ -97,12 +115,70 @@
   </main>
 
   <footer class="footer">
-    <p class="wrap">Faltou algum link? Ele pode ser adicionado no arquivo <code>links.js</code>.</p>
+    <p class="wrap" id="footer-text">Faltou algum link? Qualquer pessoa com o endereço deste site pode adicionar, editar e excluir links pelo botão Editar.</p>
   </footer>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="links.js"></script>
+  <dialog class="dialog" id="link-dialog" aria-labelledby="link-dialog-title">
+    <form class="dialog__form" id="link-form" novalidate>
+      <h2 class="dialog__title" id="link-dialog-title">Adicionar link</h2>
+      <div class="field">
+        <label class="field__label" for="f-name">Nome</label>
+        <input class="input" id="f-name" maxlength="80" autocomplete="off" required>
+      </div>
+      <div class="field">
+        <label class="field__label" for="f-url">Endereço</label>
+        <input class="input" id="f-url" type="url" inputmode="url" autocomplete="off" spellcheck="false" placeholder="https://" maxlength="2000" required>
+      </div>
+      <div class="field">
+        <label class="field__label" for="f-category">Seção</label>
+        <select class="input" id="f-category" required></select>
+      </div>
+      <div class="field">
+        <label class="field__label" for="f-description">Descrição <span class="field__optional">(opcional)</span></label>
+        <input class="input" id="f-description" maxlength="200" autocomplete="off">
+      </div>
+      <div class="field">
+        <label class="field__label" for="f-tags">Palavras para a busca <span class="field__optional">(opcional)</span></label>
+        <input class="input" id="f-tags" autocomplete="off" aria-describedby="f-tags-hint">
+        <p class="field__hint" id="f-tags-hint">Separe com vírgulas. Ex.: quadro, fluxos, diagramas</p>
+      </div>
+      <p class="form-error" id="link-error" role="alert" hidden></p>
+      <div class="dialog__actions">
+        <button class="btn btn--ghost" type="button" data-close>Cancelar</button>
+        <button class="btn" type="submit">Salvar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="dialog" id="section-dialog" aria-labelledby="section-dialog-title">
+    <form class="dialog__form" id="section-form" novalidate>
+      <h2 class="dialog__title" id="section-dialog-title">Nova seção</h2>
+      <div class="field">
+        <label class="field__label" for="f-label">Nome da seção</label>
+        <input class="input" id="f-label" maxlength="40" autocomplete="off" required>
+      </div>
+      <p class="form-error" id="section-error" role="alert" hidden></p>
+      <div class="dialog__actions">
+        <button class="btn btn--ghost" type="button" data-close>Cancelar</button>
+        <button class="btn" type="submit">Salvar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="dialog" id="confirm-dialog" aria-labelledby="confirm-title" aria-describedby="confirm-text">
+    <form class="dialog__form" id="confirm-form" novalidate>
+      <h2 class="dialog__title" id="confirm-title"></h2>
+      <p class="dialog__text" id="confirm-text"></p>
+      <p class="form-error" id="confirm-error" role="alert" hidden></p>
+      <div class="dialog__actions">
+        <button class="btn btn--ghost" type="button" id="confirm-cancel" data-close>Cancelar</button>
+        <button class="btn btn--danger" type="submit" id="confirm-ok">Excluir</button>
+      </div>
+    </form>
+  </dialog>
+
   <script src="app.js"></script>
 </body>
 </html>

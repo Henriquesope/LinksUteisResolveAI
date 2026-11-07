@@ -21,6 +21,10 @@
   --tile-ink: #ffffff;
   --toast-bg: #000000;
   --toast-ink: #ffffff;
+  --danger: #c8102e;
+  --danger-bg: #c8102e;
+  --on-danger: #ffffff;
+  --backdrop: rgb(0 0 0 / .5);
 
   /* Tipografia */
   --font: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, Arial, sans-serif;
@@ -49,6 +53,10 @@
     --tile-ink: #000000;
     --toast-bg: #ffffff;
     --toast-ink: #000000;
+    --danger: #ff8a8a;
+    --danger-bg: #ff8a8a;
+    --on-danger: #000000;
+    --backdrop: rgb(0 0 0 / .7);
     color-scheme: dark;
   }
 }
@@ -66,6 +74,10 @@
   --tile-ink: #000000;
   --toast-bg: #ffffff;
   --toast-ink: #000000;
+  --danger: #ff8a8a;
+  --danger-bg: #ff8a8a;
+  --on-danger: #000000;
+  --backdrop: rgb(0 0 0 / .7);
   color-scheme: dark;
 }
 
@@ -88,7 +100,7 @@ body {
 
 h1, h2, h3, p { margin: 0; }
 
-button, input { font: inherit; color: inherit; }
+button, input, select { font: inherit; color: inherit; }
 
 button { cursor: pointer; touch-action: manipulation; }
 
@@ -181,6 +193,29 @@ button { cursor: pointer; touch-action: manipulation; }
 }
 
 .brand__mark { width: 26px; height: 28px; }
+
+.topbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding-inline: 14px 18px;
+  border: 1px solid rgb(255 255 255 / .7);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--on-brand);
+  font-weight: 600;
+  transition: background-color var(--fast) var(--ease), color var(--fast) var(--ease);
+}
+.pill-btn .icon { width: 18px; height: 18px; }
+.pill-btn:hover { background: var(--brand-pressed); }
+.pill-btn[aria-pressed="true"] { background: #fff; border-color: #fff; color: #000; }
 
 .brand__name {
   font-size: 20px;
@@ -372,6 +407,12 @@ button { cursor: pointer; touch-action: manipulation; }
   line-height: 1.3;
 }
 
+.section__tools {
+  display: flex;
+  margin-left: 4px;
+}
+.section__tools .icon { width: 18px; height: 18px; }
+
 .section__icon {
   color: var(--accent-text);
   fill: currentColor;
@@ -503,8 +544,115 @@ button { cursor: pointer; touch-action: manipulation; }
 .icon-btn[aria-pressed="true"] { color: var(--accent-text); }
 .icon-btn[aria-pressed="true"] .icon { fill: currentColor; }
 
+.icon-btn--danger:hover { color: var(--danger); }
+
 .icon-btn--on-brand { color: var(--on-brand); }
 .icon-btn--on-brand:hover { background: var(--brand-pressed); color: var(--on-brand); }
+
+/* ---------- Edição ---------- */
+
+.edit-note {
+  margin-bottom: 24px;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-m);
+  background: var(--surface-hover);
+  font-size: 14px;
+}
+
+.add-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 100%;
+  min-height: 112px;
+  border: 1.5px dashed var(--border-strong);
+  border-radius: var(--radius-l);
+  background: transparent;
+  color: var(--ink-muted);
+  font-weight: 600;
+  transition: background-color var(--fast) var(--ease), border-color var(--fast) var(--ease), color var(--fast) var(--ease);
+}
+.add-card:hover {
+  border-color: var(--brand);
+  background: var(--surface-hover);
+  color: var(--accent-text);
+}
+
+.edit-tools { margin-top: 40px; }
+
+.status-text {
+  padding-block: 48px;
+  color: var(--ink-muted);
+  text-align: center;
+}
+
+/* ---------- Janelas de edição ---------- */
+
+.dialog {
+  width: min(100% - 32px, 480px);
+  max-height: calc(100dvh - 32px);
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-l);
+  background: var(--surface);
+  color: var(--ink);
+}
+.dialog::backdrop { background: var(--backdrop); }
+
+.dialog__form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+}
+
+.dialog__title {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -.02em;
+  line-height: 1.3;
+}
+
+.dialog__text { color: var(--ink-muted); overflow-wrap: anywhere; }
+
+.dialog__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field__label { font-size: 15px; font-weight: 500; }
+.field__optional { color: var(--ink-muted); font-weight: 400; }
+.field__hint { color: var(--ink-muted); font-size: 13px; }
+
+.input {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-s);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 16px;
+}
+.input:focus-visible { outline-offset: 0; border-color: var(--accent-text); }
+
+.form-error {
+  color: var(--danger);
+  font-size: 14px;
+  font-weight: 500;
+}
 
 /* ---------- Estado vazio ---------- */
 
@@ -526,8 +674,11 @@ button { cursor: pointer; touch-action: manipulation; }
 }
 
 .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   min-height: 44px;
-  margin-top: 24px;
   padding-inline: 20px;
   border: 0;
   border-radius: var(--radius-m);
@@ -537,6 +688,19 @@ button { cursor: pointer; touch-action: manipulation; }
   transition: background-color var(--fast) var(--ease);
 }
 .btn:hover { background: var(--brand-pressed); }
+.btn:disabled { opacity: .6; cursor: progress; }
+
+.btn--ghost {
+  border: 1px solid var(--border-strong);
+  background: transparent;
+  color: var(--ink);
+}
+.btn--ghost:hover { background: var(--surface-hover); }
+
+.btn--danger { background: var(--danger-bg); color: var(--on-danger); }
+.btn--danger:hover { background: var(--danger-bg); filter: brightness(.92); }
+
+.empty .btn { margin-top: 24px; }
 
 /* ---------- Rodapé e toast ---------- */
 

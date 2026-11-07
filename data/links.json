@@ -1,0 +1,41 @@
+{
+  "categories": [
+    { "id": "design", "label": "Design" },
+    { "id": "documentos", "label": "Documentos" },
+    { "id": "gestao", "label": "Gestão" }
+  ],
+  "links": [
+    {
+      "id": "design-system",
+      "name": "Design system ResolveAI",
+      "url": "https://www.figma.com/design/myZniw00JNflRgBSlm83dL/Untitled?node-id=0-1",
+      "category": "design",
+      "description": "Logo, cores e tipografia oficiais da marca.",
+      "tags": ["figma", "marca", "logo", "identidade visual"]
+    },
+    {
+      "id": "confluence",
+      "name": "Confluence",
+      "url": "https://andreiosousa2502.atlassian.net/wiki/spaces/RA/folder/7831553",
+      "category": "documentos",
+      "description": "Documentação do projeto ResolveAI.",
+      "tags": ["atlassian", "wiki", "docs"]
+    },
+    {
+      "id": "miro",
+      "name": "Miro",
+      "url": "https://miro.com/welcomeonboard/SlROMXhCSWdrN2FPSW0xc05JNFBEWmFwSWRCRXdYVENWR1NzaXhkYWpoTmhocTRDalk5d0tWZGtzRzc0YXJyNVRNMjd5K1BQTXZudm5GcGZNM09zZ2RLK3p0Tzh3VDhUako4YnUrR0o3T3ZiaVpyMlhkQTJqaDRIOUhDR052K01zVXVvMm53MW9OWFg5bkJoVXZxdFhRPT0hdjE=?share_link_id=499665409701",
+      "category": "documentos",
+      "description": "Quadro colaborativo do projeto ResolveAI.",
+      "tags": ["quadro", "board", "whiteboard", "fluxos", "diagramas"]
+    },
+    {
+      "id": "jira",
+      "name": "Jira",
+      "url": "https://andreiosousa2502.atlassian.net/jira/software/projects/RESOLVEAI/summary",
+      "category": "gestao",
+      "description": "Resumo e acompanhamento do projeto ResolveAI.",
+      "tags": ["atlassian", "tarefas", "tickets", "sprint"]
+    }
+  ]
+}
